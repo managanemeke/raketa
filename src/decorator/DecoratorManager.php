@@ -17,17 +17,14 @@ class DecoratorManager extends DataProvider
      * @param string $host
      * @param string $user
      * @param string $password
+     * @param LoggerInterface $logger
      * @param CacheItemPoolInterface $cache
      */
-    public function __construct($host, $user, $password, CacheItemPoolInterface $cache)
+    public function __construct($host, $user, $password, LoggerInterface $logger, CacheItemPoolInterface $cache)
     {
         parent::__construct($host, $user, $password);
-        $this->cache = $cache;
-    }
-
-    public function setLogger(LoggerInterface $logger)
-    {
         $this->logger = $logger;
+        $this->cache = $cache;
     }
 
     /**
