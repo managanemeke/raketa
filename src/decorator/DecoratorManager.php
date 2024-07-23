@@ -33,26 +33,31 @@ class DecoratorManager extends DataProvider
     public function getResponse(array $input)
     {
         try {
-            $cacheKey = $this->getCacheKey($input);
-            $cacheItem = $this->cache->getItem($cacheKey);
-            if ($cacheItem->isHit()) {
-                return $cacheItem->get();
-            }
-
-            $result = parent::get($input);
-
-            $cacheItem
-                ->set($result)
-                ->expiresAt(
-                    (new DateTime())->modify('+1 day')
-                );
-
-            return $result;
+            return $this->cacheResponse($input);
         } catch (Exception $e) {
             $this->logger->critical('Error');
         }
 
         return [];
+    }
+
+    public function cacheResponse(array $input): array
+    {
+        $cacheKey = $this->getCacheKey($input);
+        $cacheItem = $this->cache->getItem($cacheKey);
+        if ($cacheItem->isHit()) {
+            return $cacheItem->get();
+        }
+
+        $result = parent::get($input);
+
+        $cacheItem
+            ->set($result)
+            ->expiresAt(
+                (new DateTime())->modify('+1 day')
+            );
+
+        return $result;
     }
 
     public function getCacheKey(array $input)
