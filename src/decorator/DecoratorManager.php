@@ -58,7 +58,7 @@ class DecoratorManager extends DataProvider
 
     public function cacheItem(array $input): CacheItemInterface
     {
-        $cacheKey = $this->getCacheKey($input);
+        $cacheKey = json_encode($input);
         return $this->cache->getItem($cacheKey);
     }
 
@@ -69,10 +69,5 @@ class DecoratorManager extends DataProvider
             ->expiresAt(
                 (new DateTime())->modify('+1 day')
             );
-    }
-
-    public function getCacheKey(array $input)
-    {
-        return json_encode($input);
     }
 }
