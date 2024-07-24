@@ -51,11 +51,7 @@ class DecoratorManager extends DataProvider
 
         $result = parent::get($input);
 
-        $cacheItem
-            ->set($result)
-            ->expiresAt(
-                (new DateTime())->modify('+1 day')
-            );
+        $this->storeResponse($cacheItem, $result);
 
         return $result;
     }
@@ -64,6 +60,15 @@ class DecoratorManager extends DataProvider
     {
         $cacheKey = $this->getCacheKey($input);
         return $this->cache->getItem($cacheKey);
+    }
+
+    private function storeResponse(CacheItemInterface $cacheItem, array $result): void
+    {
+        $cacheItem
+            ->set($result)
+            ->expiresAt(
+                (new DateTime())->modify('+1 day')
+            );
     }
 
     public function getCacheKey(array $input)
