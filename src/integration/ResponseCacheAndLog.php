@@ -1,13 +1,11 @@
 <?php
 
-namespace src\decorator;
+namespace src\integration;
 
 use DateTime;
 use Exception;
 use Psr\Cache\CacheItemInterface;
 use Psr\Log\LoggerInterface;
-use src\integration\Credential;
-use src\Integration\Response;
 
 class ResponseCacheAndLog extends Response
 {
