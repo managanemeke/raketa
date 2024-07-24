@@ -23,7 +23,7 @@ class ResponseLogger implements ResponseInterface
         try {
             return $this->response->result();
         } catch (Exception $e) {
-            $this->logger->critical('Error');
+            $this->logger->critical($e->getMessage());
         }
         return [];
     }
