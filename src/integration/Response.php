@@ -2,7 +2,7 @@
 
 namespace src\integration;
 
-class Response
+class Response implements ResponseInterface
 {
     private Credential $credential;
     private array $request;

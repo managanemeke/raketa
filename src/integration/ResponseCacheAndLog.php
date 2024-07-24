@@ -7,7 +7,7 @@ use Exception;
 use Psr\Cache\CacheItemInterface;
 use Psr\Log\LoggerInterface;
 
-class ResponseCacheAndLog extends Response
+class ResponseCacheAndLog extends Response implements ResponseInterface
 {
     private CacheItemInterface $cacheItem;
     private LoggerInterface $logger;
