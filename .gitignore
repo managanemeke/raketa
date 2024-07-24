@@ -1,7 +1,7 @@
 *
-!src
-!src/*
-!src/*/*
-!readme.md
-!.gitignore
-!composer.json
+!/src
+!/src/*
+!/src/*/*
+!/readme.md
+!/.gitignore
+!/composer.json
