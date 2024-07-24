@@ -33,13 +33,13 @@ class ResponseCacheAndLog extends Response
 
     public function result(): array
     {
-        return $this->getAndCacheAndLogResponse();
+        return $this->retrieveAndCacheAndLogResult();
     }
 
-    public function getAndCacheAndLogResponse(): array
+    public function retrieveAndCacheAndLogResult(): array
     {
         try {
-            return $this->getAndCacheResponse();
+            return $this->retrieveAndCacheResult();
         } catch (Exception $e) {
             $this->logger->critical('Error');
         }
@@ -47,7 +47,7 @@ class ResponseCacheAndLog extends Response
         return [];
     }
 
-    public function getAndCacheResponse(): array
+    public function retrieveAndCacheResult(): array
     {
         $cacheItem = $this->cacheItem;
         if ($cacheItem->isHit()) {
@@ -56,12 +56,12 @@ class ResponseCacheAndLog extends Response
 
         $result = parent::result();
 
-        $this->storeResponse($result);
+        $this->storeResult($result);
 
         return $result;
     }
 
-    private function storeResponse(array $result): void
+    private function storeResult(array $result): void
     {
         $this->cacheItem
             ->set($result)
