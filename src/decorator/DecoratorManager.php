@@ -32,6 +32,11 @@ class DecoratorManager extends DataProvider
      */
     public function getResponse(array $input)
     {
+        $this->getAndCacheAndLogResponse($input);
+    }
+
+    public function getAndCacheAndLogResponse(array $input): array
+    {
         try {
             return $this->getAndCacheResponse($input);
         } catch (Exception $e) {
