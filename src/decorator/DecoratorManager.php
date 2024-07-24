@@ -33,7 +33,7 @@ class DecoratorManager extends DataProvider
     public function getResponse(array $input)
     {
         try {
-            return $this->cacheResponse($input);
+            return $this->getAndCacheResponse($input);
         } catch (Exception $e) {
             $this->logger->critical('Error');
         }
@@ -41,7 +41,7 @@ class DecoratorManager extends DataProvider
         return [];
     }
 
-    public function cacheResponse(array $input): array
+    public function getAndCacheResponse(array $input): array
     {
         $cacheItem = $this->cacheItem;
         if ($cacheItem->isHit()) {
