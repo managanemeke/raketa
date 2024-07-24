@@ -36,8 +36,11 @@ class ResponseCache implements ResponseInterface
     {
         $this->cacheItem
             ->set($result)
-            ->expiresAt(
-                (new DateTime())->modify('+1 day')
-            );
+            ->expiresAt($this->tomorrow());
+    }
+
+    private function tomorrow(): DateTime
+    {
+        return (new DateTime())->modify('+1 day');
     }
 }
