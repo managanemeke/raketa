@@ -7,18 +7,18 @@ use Exception;
 use Psr\Cache\CacheItemInterface;
 use Psr\Log\LoggerInterface;
 
-class ResponseCacheAndLog extends Response implements ResponseInterface
+class ResponseCacheAndLog implements ResponseInterface
 {
+    private ResponseInterface $response;
     private CacheItemInterface $cacheItem;
     private LoggerInterface $logger;
 
     public function __construct(
-        Credential $credential,
-        array $request,
+        ResponseInterface $response,
         LoggerInterface $logger,
         CacheItemInterface $cacheItem
     ) {
-        parent::__construct($credential, $request);
+        $this->response = $response;
         $this->logger = $logger;
         $this->cacheItem = $cacheItem;
     }
@@ -46,7 +46,7 @@ class ResponseCacheAndLog extends Response implements ResponseInterface
             return $cacheItem->get();
         }
 
-        $result = parent::result();
+        $result = $this->response->result();
 
         $this->storeResult($result);
 
