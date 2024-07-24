@@ -17,12 +17,13 @@ class DecoratorManager extends DataProvider
      * @param string $host
      * @param string $user
      * @param string $password
+     * @param array $request
      * @param LoggerInterface $logger
      * @param CacheItemInterface $cacheItem
      */
-    public function __construct($host, $user, $password, LoggerInterface $logger, CacheItemInterface $cacheItem)
+    public function __construct($host, $user, $password, array $request, LoggerInterface $logger, CacheItemInterface $cacheItem)
     {
-        parent::__construct($host, $user, $password);
+        parent::__construct($host, $user, $password, $request);
         $this->logger = $logger;
         $this->cacheItem = $cacheItem;
     }
@@ -30,15 +31,15 @@ class DecoratorManager extends DataProvider
     /**
      * {@inheritdoc}
      */
-    public function getResponse(array $input)
+    public function getResponse()
     {
-        $this->getAndCacheAndLogResponse($input);
+        $this->getAndCacheAndLogResponse();
     }
 
-    public function getAndCacheAndLogResponse(array $input): array
+    public function getAndCacheAndLogResponse(): array
     {
         try {
-            return $this->getAndCacheResponse($input);
+            return $this->getAndCacheResponse();
         } catch (Exception $e) {
             $this->logger->critical('Error');
         }
@@ -46,14 +47,14 @@ class DecoratorManager extends DataProvider
         return [];
     }
 
-    public function getAndCacheResponse(array $input): array
+    public function getAndCacheResponse(): array
     {
         $cacheItem = $this->cacheItem;
         if ($cacheItem->isHit()) {
             return $cacheItem->get();
         }
 
-        $result = parent::get($input);
+        $result = parent::get();
 
         $this->storeResponse($result);
 
