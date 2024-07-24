@@ -5,7 +5,7 @@ namespace src\integration;
 use DateTime;
 use Psr\Cache\CacheItemInterface;
 
-class ResponseCacheAndLog implements ResponseInterface
+class ResponseCache implements ResponseInterface
 {
     private ResponseInterface $response;
     private CacheItemInterface $cacheItem;
