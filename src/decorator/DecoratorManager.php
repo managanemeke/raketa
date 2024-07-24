@@ -10,8 +10,8 @@ use src\Integration\DataProvider;
 
 class DecoratorManager extends DataProvider
 {
-    public CacheItemInterface $cacheItem;
-    public LoggerInterface $logger;
+    private CacheItemInterface $cacheItem;
+    private LoggerInterface $logger;
 
     /**
      * @param string $host
