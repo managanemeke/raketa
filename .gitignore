@@ -2,5 +2,6 @@
 !src
 !src/*
 !src/*/*
+!readme.md
 !.gitignore
 !composer.json
