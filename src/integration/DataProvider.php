@@ -4,26 +4,18 @@ namespace src\integration;
 
 class DataProvider
 {
-    private string $host;
-    private string $user;
-    private string $password;
+    private Credential $credential;
     private array $request;
 
     /**
-     * @param string $host
-     * @param string $user
-     * @param string $password
+     * @param Credential $credential
      * @param array $request
      */
     public function __construct(
-        string $host,
-        string $user,
-        string $password,
+        Credential $credential,
         array $request
     ) {
-        $this->host = $host;
-        $this->user = $user;
-        $this->password = $password;
+        $this->credential = $credential;
         $this->request = $request;
     }
 

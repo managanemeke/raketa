@@ -6,6 +6,7 @@ use DateTime;
 use Exception;
 use Psr\Cache\CacheItemInterface;
 use Psr\Log\LoggerInterface;
+use src\integration\Credential;
 use src\Integration\DataProvider;
 
 class DecoratorManager extends DataProvider
@@ -14,22 +15,18 @@ class DecoratorManager extends DataProvider
     private LoggerInterface $logger;
 
     /**
-     * @param string $host
-     * @param string $user
-     * @param string $password
+     * @param Credential $credential
      * @param array $request
      * @param LoggerInterface $logger
      * @param CacheItemInterface $cacheItem
      */
     public function __construct(
-        string $host,
-        string $user,
-        string $password,
+        Credential $credential,
         array $request,
         LoggerInterface $logger,
         CacheItemInterface $cacheItem
     ) {
-        parent::__construct($host, $user, $password, $request);
+        parent::__construct($credential, $request);
         $this->logger = $logger;
         $this->cacheItem = $cacheItem;
     }
