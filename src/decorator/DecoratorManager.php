@@ -4,6 +4,7 @@ namespace src\decorator;
 
 use DateTime;
 use Exception;
+use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Log\LoggerInterface;
 use src\Integration\DataProvider;
@@ -43,8 +44,7 @@ class DecoratorManager extends DataProvider
 
     public function cacheResponse(array $input): array
     {
-        $cacheKey = $this->getCacheKey($input);
-        $cacheItem = $this->cache->getItem($cacheKey);
+        $cacheItem = $this->cacheItem($input);
         if ($cacheItem->isHit()) {
             return $cacheItem->get();
         }
@@ -58,6 +58,12 @@ class DecoratorManager extends DataProvider
             );
 
         return $result;
+    }
+
+    public function cacheItem(array $input): CacheItemInterface
+    {
+        $cacheKey = $this->getCacheKey($input);
+        return $this->cache->getItem($cacheKey);
     }
 
     public function getCacheKey(array $input)
