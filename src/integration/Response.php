@@ -2,7 +2,7 @@
 
 namespace src\integration;
 
-class DataProvider
+class Response
 {
     private Credential $credential;
     private array $request;

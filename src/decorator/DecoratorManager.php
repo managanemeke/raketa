@@ -7,9 +7,9 @@ use Exception;
 use Psr\Cache\CacheItemInterface;
 use Psr\Log\LoggerInterface;
 use src\integration\Credential;
-use src\Integration\DataProvider;
+use src\Integration\Response;
 
-class DecoratorManager extends DataProvider
+class DecoratorManager extends Response
 {
     private CacheItemInterface $cacheItem;
     private LoggerInterface $logger;
