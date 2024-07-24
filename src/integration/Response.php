@@ -19,7 +19,7 @@ class Response
         $this->request = $request;
     }
 
-    public function getResponse(): array
+    public function result(): array
     {
         // returns a response from external service
         return [];

@@ -31,7 +31,7 @@ class ResponseCacheAndLog extends Response
         $this->cacheItem = $cacheItem;
     }
 
-    public function getResponse(): array
+    public function result(): array
     {
         return $this->getAndCacheAndLogResponse();
     }
@@ -54,7 +54,7 @@ class ResponseCacheAndLog extends Response
             return $cacheItem->get();
         }
 
-        $result = parent::getResponse();
+        $result = parent::result();
 
         $this->storeResponse($result);
 
