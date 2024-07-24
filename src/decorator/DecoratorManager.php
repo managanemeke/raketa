@@ -5,13 +5,12 @@ namespace src\decorator;
 use DateTime;
 use Exception;
 use Psr\Cache\CacheItemInterface;
-use Psr\Cache\CacheItemPoolInterface;
 use Psr\Log\LoggerInterface;
 use src\Integration\DataProvider;
 
 class DecoratorManager extends DataProvider
 {
-    public $cache;
+    public $cacheItem;
     public $logger;
 
     /**
@@ -19,13 +18,13 @@ class DecoratorManager extends DataProvider
      * @param string $user
      * @param string $password
      * @param LoggerInterface $logger
-     * @param CacheItemPoolInterface $cache
+     * @param CacheItemInterface $cacheItem
      */
-    public function __construct($host, $user, $password, LoggerInterface $logger, CacheItemPoolInterface $cache)
+    public function __construct($host, $user, $password, LoggerInterface $logger, CacheItemInterface $cacheItem)
     {
         parent::__construct($host, $user, $password);
         $this->logger = $logger;
-        $this->cache = $cache;
+        $this->cacheItem = $cacheItem;
     }
 
     /**
@@ -44,27 +43,21 @@ class DecoratorManager extends DataProvider
 
     public function cacheResponse(array $input): array
     {
-        $cacheItem = $this->cacheItem($input);
+        $cacheItem = $this->cacheItem;
         if ($cacheItem->isHit()) {
             return $cacheItem->get();
         }
 
         $result = parent::get($input);
 
-        $this->storeResponse($cacheItem, $result);
+        $this->storeResponse($result);
 
         return $result;
     }
 
-    public function cacheItem(array $input): CacheItemInterface
+    private function storeResponse(array $result): void
     {
-        $cacheKey = json_encode($input);
-        return $this->cache->getItem($cacheKey);
-    }
-
-    private function storeResponse(CacheItemInterface $cacheItem, array $result): void
-    {
-        $cacheItem
+        $this->cacheItem
             ->set($result)
             ->expiresAt(
                 (new DateTime())->modify('+1 day')
