@@ -7,10 +7,6 @@ class Response
     private Credential $credential;
     private array $request;
 
-    /**
-     * @param Credential $credential
-     * @param array $request
-     */
     public function __construct(
         Credential $credential,
         array $request

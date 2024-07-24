@@ -12,12 +12,6 @@ class ResponseCacheAndLog extends Response
     private CacheItemInterface $cacheItem;
     private LoggerInterface $logger;
 
-    /**
-     * @param Credential $credential
-     * @param array $request
-     * @param LoggerInterface $logger
-     * @param CacheItemInterface $cacheItem
-     */
     public function __construct(
         Credential $credential,
         array $request,
