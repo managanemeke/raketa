@@ -20,11 +20,6 @@ class ResponseCacheAndLog implements ResponseInterface
 
     public function result(): array
     {
-        return $this->retrieveAndCacheResult();
-    }
-
-    public function retrieveAndCacheResult(): array
-    {
         $cacheItem = $this->cacheItem;
         if ($cacheItem->isHit()) {
             return $cacheItem->get();
