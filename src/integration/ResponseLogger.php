@@ -25,7 +25,6 @@ class ResponseLogger implements ResponseInterface
         } catch (Exception $e) {
             $this->logger->critical('Error');
         }
-
         return [];
     }
 }

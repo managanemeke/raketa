@@ -24,11 +24,8 @@ class ResponseCache implements ResponseInterface
         if ($cacheItem->isHit()) {
             return $cacheItem->get();
         }
-
         $result = $this->response->result();
-
         $this->storeResult($result);
-
         return $result;
     }
 
