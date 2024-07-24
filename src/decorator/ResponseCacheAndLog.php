@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 use src\integration\Credential;
 use src\Integration\Response;
 
-class DecoratorManager extends Response
+class ResponseCacheAndLog extends Response
 {
     private CacheItemInterface $cacheItem;
     private LoggerInterface $logger;
