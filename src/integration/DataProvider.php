@@ -23,11 +23,9 @@ class DataProvider
         $this->request = $request;
     }
 
-    /**
-     * @return array
-     */
-    public function get()
+    public function getResponse(): array
     {
         // returns a response from external service
+        return [];
     }
 }

@@ -28,12 +28,9 @@ class DecoratorManager extends DataProvider
         $this->cacheItem = $cacheItem;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getResponse()
+    public function getResponse(): array
     {
-        $this->getAndCacheAndLogResponse();
+        return $this->getAndCacheAndLogResponse();
     }
 
     public function getAndCacheAndLogResponse(): array
@@ -54,7 +51,7 @@ class DecoratorManager extends DataProvider
             return $cacheItem->get();
         }
 
-        $result = parent::get();
+        $result = parent::getResponse();
 
         $this->storeResponse($result);
 
